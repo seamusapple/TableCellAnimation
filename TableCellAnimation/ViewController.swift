@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     // MARK: - Private Properties
     private let tableView = UITableView()
     private let cellColor = [UIColor(named: "BlueJeans"), UIColor(named: "CaribbeanGreen"), UIColor(named: "DeepSaffron"), UIColor(named: "GlossyGrape"), UIColor(named: "Rose"), UIColor(named: "YelloCrayola")]
+    private let scrollBase = UIScrollView()
     private var animationSeg = UISegmentedControl()
     private var currentTableAnimation: TableAnimation = .fadeIn(duration: 0.85, delay: 0.03)
     private var animationDuration: TimeInterval = 0.85
@@ -43,22 +44,25 @@ class ViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.isHidden = true
         tableView.register(TableAnimationCell.self, forCellReuseIdentifier: TableAnimationCell.description())
-        animationSeg = UISegmentedControl(items: ["1", "2", "3", "4", "5", "6", "7"])
+        animationSeg = UISegmentedControl(items: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"])
         animationSeg.addTarget(self, action: #selector(chooseAni(sender:)), for: .valueChanged)
         animationSeg.selectedSegmentIndex = 0
         animationSeg.backgroundColor = UIColor(named: "AccentColor")
         animationSeg.layer.cornerRadius = 4
         animationSeg.layer.masksToBounds = true
+        scrollBase.contentSize = CGSize(width: 1000, height: 60)
     }
 
     private func addSubComponets() {
         view.addSubview(tableView)
-        view.addSubview(animationSeg)
+        view.addSubview(scrollBase)
+        scrollBase.addSubview(animationSeg)
     }
 
     private func layoutSubComponents() {
         tableView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: view.bounds.width, height: view.bounds.height*0.9))
-        animationSeg.frame = CGRect(x: 5, y: tableView.frame.height+10, width: view.bounds.width-10, height: 45)
+        scrollBase.frame = CGRect(x: 5, y: tableView.frame.height+10, width: view.bounds.width-10, height: 60)
+        animationSeg.frame = CGRect(origin: .zero, size: CGSize(width: scrollBase.contentSize.width, height: 45))
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.tableView.isHidden = false
             self.tableView.reloadData()
@@ -82,6 +86,28 @@ class ViewController: UIViewController {
             currentTableAnimation = TableAnimation.moveDownWithFade(duration: animationDuration, delay: delay)
         case 6:
             currentTableAnimation = TableAnimation.moveDownBounce(duration: animationDuration + 0.2, delay: delay)
+        case 7:
+            currentTableAnimation = TableAnimation.rotate(duration: animationDuration, delay: delay)
+        case 8:
+            currentTableAnimation = TableAnimation.moveRight(duration: animationDuration, delay: delay)
+        case 9:
+            currentTableAnimation = TableAnimation.moveRightWithFade(duration: animationDuration, delay: delay)
+        case 10:
+            currentTableAnimation = TableAnimation.moveRightBounce(duration: animationDuration, delay: delay)
+        case 11:
+            currentTableAnimation = TableAnimation.moveLeft(duration: animationDuration, delay: delay)
+        case 12:
+            currentTableAnimation = TableAnimation.moveLeftWithFade(duration: animationDuration, delay: delay)
+        case 13:
+            currentTableAnimation = TableAnimation.moveLeftBounce(duration: animationDuration, delay: delay)
+        case 14:
+            currentTableAnimation = TableAnimation.moveLinearBounce(duration: animationDuration, delay: delay)
+        case 15:
+            currentTableAnimation = TableAnimation.zoomOutBounce(duration: animationDuration, delay: delay)
+        case 16:
+            currentTableAnimation = TableAnimation.moveCenterBounce(duration: animationDuration, delay: delay)
+        case 17:
+            currentTableAnimation = TableAnimation.cardDropBounce(duration: animationDuration, delay: delay)
         default:
             currentTableAnimation = TableAnimation.fadeIn(duration: animationDuration, delay: delay)
         }
