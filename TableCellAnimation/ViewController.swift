@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.isHidden = true
         tableView.register(TableAnimationCell.self, forCellReuseIdentifier: TableAnimationCell.description())
-        animationSeg = UISegmentedControl(items: ["1", "2", "3", "4"])
+        animationSeg = UISegmentedControl(items: ["1", "2", "3", "4", "5", "6", "7"])
         animationSeg.addTarget(self, action: #selector(chooseAni(sender:)), for: .valueChanged)
         animationSeg.selectedSegmentIndex = 0
         animationSeg.backgroundColor = UIColor(named: "AccentColor")
@@ -71,12 +71,17 @@ class ViewController: UIViewController {
         case 0:
             currentTableAnimation = TableAnimation.fadeIn(duration: animationDuration, delay: delay)
         case 1:
-            currentTableAnimation = TableAnimation.moveUp(rowHeight: 60, duration: animationDuration, delay: delay)
+            currentTableAnimation = TableAnimation.moveUp(duration: animationDuration, delay: delay)
         case 2:
-            currentTableAnimation = TableAnimation.moveUpWithFade(rowHeight: 60, duration: animationDuration, delay: delay)
+            currentTableAnimation = TableAnimation.moveUpWithFade(duration: animationDuration, delay: delay)
         case 3:
-            currentTableAnimation = TableAnimation.moveUpBounce(rowHeight: 60,
-                                                                        duration: animationDuration + 0.2, delay: delay)
+            currentTableAnimation = TableAnimation.moveUpBounce(duration: animationDuration + 0.2, delay: delay)
+        case 4:
+            currentTableAnimation = TableAnimation.moveDown(duration: animationDuration, delay: delay)
+        case 5:
+            currentTableAnimation = TableAnimation.moveDownWithFade(duration: animationDuration, delay: delay)
+        case 6:
+            currentTableAnimation = TableAnimation.moveDownBounce(duration: animationDuration + 0.2, delay: delay)
         default:
             currentTableAnimation = TableAnimation.fadeIn(duration: animationDuration, delay: delay)
         }
